@@ -8,7 +8,7 @@
 	<script src="/socket.io/socket.io.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
 	<script>
-	var socket = io.connect("http://localhost:4444");
+	var socket = io.connect("https://quizzgamee.herokuapp.com/");
 	var i,username,j=0,myscore=0,otherscore=0,finalresults,ti,user_id;
 	
 	socket.on('updatechat', function (username, data,id) {
