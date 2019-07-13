@@ -18,8 +18,8 @@ console.log("Listening to 4444")
 console.log("Connection Established !")
 
 //Route
-app.get('/',function (req,res){
-	res.sendFile(__dirname + '/index.html');
+app.get('/',function(req,res) {
+  res.sendFile('index.html');
 });
 
 io.sockets.on('connection', function(socket){
