@@ -4,7 +4,6 @@ var server = require('http').createServer(app);
 var io = require('socket.io').listen(server);
 var fs = require('fs');
 var request = require("request")
-const path = require('path');
 
 var url = "http://sabdhan.com/mocktest/get/9?fbclid=IwAR0ECZwhzeZIwNuqSoU0UnlLXSavhWR353Qc1npr_0xtPDTqct8WSM40GKw";
 
@@ -13,17 +12,17 @@ app.use('/', express.static(__dirname + '/public'));
 var usernames = {};
 var pairCount = 0, id, clientsno, pgmstart=0,varCounter;
 var scores = {};
-//add the router
 
-server.listen(process.env.port || 4444);
-console.log("Listening to 4444")
+const PORT = process.env.PORT || 4444
+server.listen(PORT);
+console.log(`Listening to ${PORT}`)
 console.log("Connection Established !")
 
 //Route
-app.get('/',function(req,res){
-  res.sendFile(path.join(__dirname+'/index.html'));
-  //__dirname : It will resolve to your project folder.
+app.get('/',function (req,res){
+	res.sendFile(__dirname + '/index.html');
 });
+
 io.sockets.on('connection', function(socket){
 	console.log("New Client Arrived!");
 
@@ -87,5 +86,3 @@ io.sockets.on('connection', function(socket){
 		socket.leave(socket.room);
 	});
 });
-
-
