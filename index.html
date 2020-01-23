@@ -2,18 +2,21 @@
 <html>
 <head>
 	<title>Quiz Game</title>
-	<link rel='stylesheet' href='/stylesheets/bootstrap.min.css' />
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 	<link rel="stylesheet" href="/stylesheets/style.css" />
 	<link href='https://fonts.googleapis.com/css?family=Quicksand' rel='stylesheet' type='text/css'>
 	<script src="/socket.io/socket.io.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+	<script src="https://kit.fontawesome.com/f4d8879ff1.js" crossorigin="anonymous"></script>
 	<script>
-	var socket = io.connect("https://quizzgamee.herokuapp.com/");
+	var socket = io.connect("http://localhost:5000/");
 	var i,username,j=0,myscore=0,otherscore=0,finalresults,ti,user_id;
 	
 	socket.on('updatechat', function (username, data,id) {
 		$('#conversation').append('<br>' + data + '<br>');
 		user_id = id;
+		alert(user_id);
+    
 
 	});
 
@@ -85,7 +88,7 @@
     				if(j==1){
     				socket.emit('result',username,user_id);
     				console.log("correct ans");
-    				console.log(username);
+    				console.log(user_id);
     				console.log("value of inner j: "+ j)
     				$('.current_res_c').fadeIn().delay(800).fadeOut(); j++;}
     		
@@ -106,7 +109,7 @@
 			}
 
 
-		}, 15000);
+		}, 10000);
 
 		
 
@@ -145,7 +148,7 @@
             socket.emit('addClient', username);
           } else {
             alert("USERNAME PLEASE!");
-            window.location="http://localhost:4444";
+            window.location="http://localhost:5000/";
           }
         });
       });
@@ -156,13 +159,13 @@
 </head>
 <body>
 
-<div class="row">
+<div >
 	<div id="realresults" style='display:none;'>
-		<div class="col-md-12">
-			<div class="col-md-6">
+		<div>
+			<div class="float-right">
 				<h4>My Score <b><div id="myresult" >0</div></b></h4>
 			</div>
-			<div class="col-md-6" style="text-align:right;">
+			<div class="float-left">
 				<h4>Opponent Score<b><div id="otherresult" >0</div></b></h4>
 			</div>
 		</div>
@@ -179,7 +182,7 @@
 						<h3 class="panel-title">Rules</h3> 
 					</div> 
 					<div class="panel-body"> 
-						<ul style="text-align:left;">
+						<ul style="text-align:center">
 							<li>Each question have have 10 seconds time..</li>
 							<li>Click on the answer. Choices were disabled after one click</li>
 						</ul>
@@ -191,33 +194,38 @@
 
 
 <div class="row started" id="realtime" style='display:none;'> 
+	<div class="container">
 	<div class="question">
 		<div class="row text-center">
-		  <div class="col-md-12"><h2>
+		  <div class="col"><h2>
 		  <br>
 		  <p id="qst"></p>
 		  </h2></div>
 		</div>
 	</div>
+</div>
 
-	<div class="choices">
-		<div class="row">
-		  <div class="col-md-4 col-sm-6 col-md-offset-3">
-		  	<button id="btn1" value=""></button>
-		  </div>
-		  <div class="col-md-3  col-sm-6">
-		  	<button id="btn2" value=""></button>
-		  </div>
-		</div>
-		<div class="row">
-		  <div class="col-md-4 col-sm-6 col-md-offset-3">
-		  	<button id="btn3" value=""></button>
-		  </div>
-		  <div class="col-md-3 col-sm-6">
-		  	<button id="btn4" value=""></button>
-		  </div>
-		</div>
+<div class="choices container">
+	
+	<div class="row">
+	  <div class="col-md-6 ">
+		  <button class="btn btn-block" id="btn1" value=""></button>
+	  </div>
+	  <div class="col-md-6 ">
+		  <button class="btn btn-block" id="btn2" value=""></button>
+	  </div>
 	</div>
+	<div class="row">
+	  <div class="col-md-6">
+		  <button class="btn btn-block" id="btn3" value=""></button>
+	  </div>
+	  <div class="col-md-6">
+		  <button class="btn btn-block" id="btn4" value=""></button>
+	  </div>
+	  </div>
+	
+
+</div>
 </div>
 
 <div class="current_res_c text-center" style='display:none;'>
@@ -235,11 +243,20 @@
 
 
 <div class="just_start" >
-	<div class="row text-center">
+	
+	<div class="text-center">
+		
 		<h2>Enter Your Username To Start! </h2>
 		<input type="text" id="input_user" placeholder="Enter Your Username..." required ><br>
 		<button class="btn btn-lg btn-start" id='btnJoin'>Start the Game!</button>
+
+		
 	</div>
+	<h2 class="text-center" > INVITE YOUR OPPONENT
+		<i class="fab fa-facebook"></i>
+		<i class="fab fa-whatsapp"></i>
+		<i class="fab fa-viber"></i>
+	</h2>
 </div>
 
 
@@ -261,7 +278,7 @@
 	</div>
 	<br>
 	<div>
-		<a href="https://quizzgamee.herokuapp.com/">Play Again...</a>
+		<a href="http://localhost:5000/">Play Again...</a>
 	</div>
 </div>
 
