@@ -4,8 +4,12 @@ var server = require("http").createServer(app);
 var io = require("socket.io").listen(server);
 var fs = require("fs");
 var request = require("request");
+const bodyParser = require("body-parser");
 
 var url = "http://sabdhan.com/mocktest/get/11";
+
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 app.use("/", express.static(__dirname + "/public"));
 
@@ -17,15 +21,27 @@ var pairCount = 0,
   varCounter;
 var scores = {};
 
+const usernamee = "sadman";
+const passworde = "123456";
 //Route
-app.get("/", function(req, res) {
+app.get("/game", function(req, res) {
   res.sendFile(__dirname + "/index.html");
 });
-app.get("/login", function(req, res) {
+app.get("/", function(req, res) {
   res.sendFile(__dirname + "/login.html");
 });
 app.get("/chapter", function(req, res) {
   res.sendFile(__dirname + "/chapter.html");
+});
+
+app.post("/auth", function(request, response) {
+  var username = request.body.username;
+  var password = request.body.password;
+  if (username && password) {
+    username == usernamee;
+    password == passworde;
+    response.redirect("/game");
+  }
 });
 
 io.sockets.on("connection", function(socket) {
